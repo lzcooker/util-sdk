@@ -1,5 +1,7 @@
 package com.lzc.sdk.util;
 
+import java.util.Arrays;
+
 /**
  * @author luzhicheng@cmss.chinamobile.com
  * @date 2024/9/30 10:36
@@ -80,6 +82,7 @@ public class SortUtil {
     public static void mergeSort(int[] nums) {
         sort(nums, 0, nums.length - 1, new int[nums.length]);
     }
+
     private static void sort(int[] nums, int left, int right, int[] aux) {
         if (left >= right) {
             return;
@@ -89,6 +92,7 @@ public class SortUtil {
         sort(nums, mid + 1, right, aux);
         merge(nums, left, mid, right, aux);
     }
+
     private static void merge(int[] nums, int left, int mid, int right, int[] aux) {
         int auxIndex = left;
         int i = left, j = mid + 1;
@@ -114,6 +118,7 @@ public class SortUtil {
     public static void quickSort(int[] nums) {
         quickSort(nums, 0, nums.length - 1);
     }
+
     private static void quickSort(int[] nums, int from, int to) {
         if (from >= to) {
             return;
@@ -122,6 +127,7 @@ public class SortUtil {
         quickSort(nums, from, baseIndex - 1);
         quickSort(nums, baseIndex + 1, to);
     }
+
     private static int getPartitionIndex(int[] nums, int from, int to) {
         int baseIndex = from;
         int partitionIndex = baseIndex;
@@ -159,7 +165,7 @@ public class SortUtil {
     /*
  6、希尔排序
   */
-    public static void shellSort (int[] nums) {
+    public static void shellSort(int[] nums) {
         int h = nums.length;
         while (h != 1) {
             h = h / 3 + 1;
@@ -175,5 +181,71 @@ public class SortUtil {
         }
     }
 
+    /*
+ 7、归并排序
+  */
+    public static void mergeSort(int[] array, int left, int right) {
+        if (left < right) {
+            // 找到中点
+            int middle = left + (right - left) / 2;
+
+            // 递归排序左半部分
+            mergeSort(array, left, middle);
+            // 递归排序右半部分
+            mergeSort(array, middle + 1, right);
+
+            // 合并已排序的部分
+            merge(array, left, middle, right);
+        }
+    }
+
+    // 合并两部分的方法
+    public static void merge(int[] array, int left, int middle, int right) {
+        // 计算两个子数组的大小
+        int n1 = middle - left + 1;
+        int n2 = right - middle;
+
+        // 创建临时数组
+        int[] L = new int[n1];
+        int[] R = new int[n2];
+
+        // 将数据复制到临时数组
+        for (int i = 0; i < n1; i++) {
+            L[i] = array[left + i];
+        }
+        for (int j = 0; j < n2; j++) {
+            R[j] = array[middle + 1 + j];
+        }
+
+        // 合并临时数组
+        int i = 0, j = 0;
+        int k = left;
+
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
+                array[k] = L[i];
+                i++;
+            } else {
+                array[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        // 复制剩余元素
+        while (i < n1) {
+            array[k] = L[i];
+            i++;
+            k++;
+        }
+        while (j < n2) {
+            array[k] = R[j];
+            j++;
+            k++;
+        }
+    }
 
 }
+
+
+
