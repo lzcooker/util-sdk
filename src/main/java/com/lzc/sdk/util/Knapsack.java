@@ -27,4 +27,15 @@ public class Knapsack {
         }
         return dp[N][W];
     }
+
+    public static void main(String[] args) {
+        int W = 50; // 背包最大承重
+        int N = 3; // 物品数量
+        int[] weights = {10, 20, 30}; // 物品的重量
+        int[] values = {60, 100, 120}; // 物品的价值
+
+        Knapsack knapsack = new Knapsack();
+        int maxValue = knapsack.knapsack(W, N, weights, values);
+        System.out.println("最大价值: " + maxValue); // 期望输出 220
+    }
 }
